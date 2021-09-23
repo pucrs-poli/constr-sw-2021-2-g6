@@ -1,9 +1,5 @@
 FROM node:14.17-alpine
 
-ENV PORT=3000
-ENV BASE_URL=http://localhost/auth
-ENV REALM_NAME=master
-
 WORKDIR /app
 
 COPY package.json ./
