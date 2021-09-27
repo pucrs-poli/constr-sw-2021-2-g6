@@ -67,14 +67,16 @@ UserRoute.put('/:id', async function (req, res) {
 });
 
 UserRoute.patch('/:id', async function (req, res) {
-  let { credentials }: userRepresentation = req.body;
+  let credentials: userRepresentation;
+  credentials.credentials[0].type = "password";
+  credentials.credentials[0].value = req.body.password;
   let id = req.params.id;
   let patchedUser;
 
   try {
     patchedUser = await kcAdminClient.users.update(
       { id },
-      { credentials }
+      credentials
     );
   } catch (error) {
     console.log(error);
@@ -88,7 +90,10 @@ UserRoute.delete('/:id', async function (req, res) {
   let paramId = req.params.id;
 
   try {
-    await kcAdminClient.users.del({ id: paramId });
+    await kcAdminClient.users.update(
+      { id: paramId },
+      { enabled: false },
+    );
   } catch (error) {
     console.log(error);
     res.status(400).send(error);
