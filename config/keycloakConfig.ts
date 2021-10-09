@@ -1,13 +1,12 @@
 import KeycloakAdminClient from "keycloak-admin";
-import * as dotenv from "dotenv";
 
-dotenv.config();
+import { ENVIROMENT } from './enviroment';
 
 const kcAdminClient = new KeycloakAdminClient();
 
 kcAdminClient.setConfig({
-  baseUrl: `${process.env.BASE_URL}`,
-  realmName: `${process.env.REALM_NAME}`,
+  baseUrl: `${ENVIROMENT.KEYCLOAK_BASE_URL}`,
+  realmName: `${ENVIROMENT.KEYCLOAK_REALM}`,
 });
 
 export default kcAdminClient;
