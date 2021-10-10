@@ -1,0 +1,174 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Constsw-2021-2 Keycloak Nodejs API"
+  },
+  "host": "18.117.178.141:3000",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "User",
+      "description": "CRUD dos usuarios no servidor Keycloak"
+    },
+    {
+      "name": "Auth",
+      "description": "Autentica usuario no servidor do Keycloak"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/auth": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Autoriza um usuario no servidor do Keycloak",
+        "parameters": [
+          {
+            "name": "Body para autenticacao de um usuario",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UserAuthentication"
+            }
+          }
+        ]
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Lista todos os usuarios existentes"
+      },
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "Cria um novo usuario",
+        "parameters": [
+          {
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ]
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Lista um usuario expecifico",
+        "parameters": [
+          {
+            "in": "query"
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "query"
+          },
+          {
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UserPut"
+            }
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "query"
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "query"
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "UserAuthentication": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "grantType": {
+          "type": "string"
+        },
+        "clientId": {
+          "type": "string"
+        },
+        "clientSecret": {
+          "type": "string"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "emailVerified": {
+          "type": "boolean"
+        },
+        "enable": {
+          "type": "boolean"
+        }
+      }
+    },
+    "UserPut": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

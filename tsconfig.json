@@ -7,6 +7,7 @@
     "module": "commonjs",
     "moduleResolution": "Node",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "outDir": "./build",
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
