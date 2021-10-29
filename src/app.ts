@@ -1,10 +1,7 @@
 import express from "express";
-import swaggerUi from "swagger-ui-express";
-import swaggerDocument from "../swagger.json";
 
+import connect from '../config/mongoConfig';
 import { ENVIROMENT } from "../config/enviroment";
-import AuthRoute from "./controller/authController";
-import UserRoute from "./controller/userController";
 
 const app = express();
 
@@ -13,9 +10,8 @@ app.use(express.urlencoded({
   extended: true
 }));
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.listen(ENVIROMENT.PORT, async () => {
+  console.log(`Server running on port ${ENVIROMENT.PORT}`);
 
-app.use('/auth', AuthRoute);
-app.use('/user', UserRoute);
-
-app.listen(`${ENVIROMENT.API_PORT}`);
+  await connect();
+});
