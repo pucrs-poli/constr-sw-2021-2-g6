@@ -17,17 +17,17 @@ AulaRoute.post('/', async (req, res) => {
   }
 });
 
-// AulaRoute.delete('/:id', async (req, res) => {
-//   const id = req.params.id;
+AulaRoute.delete('/:id', async (req, res) => {
+  const id = req.params.id;
 
-//   try {
-//     await AulaModel.deleteOne({ _id: mongoose.Types.ObjectId(id) });
+  try {
+    await AulaModel.findByIdAndDelete({ _id: id })
 
-//     res.status(204);
-//   } catch (error) {
-//     res.status(500).json({ Error: error.message });
-//   }
-// });
+    res.status(204);
+  } catch (error) {
+    res.status(500).json({ Error: error.message });
+  }
+});
 
 AulaRoute.put('/:id', async (req, res) => {
   const id = req.params.id;
@@ -63,7 +63,7 @@ AulaRoute.patch('/:id', async (req, res) => {
   }
 });
 
-AulaRoute.get('/todos', async (_req, res) => {
+AulaRoute.get('/all', async (_req, res) => {
   try {
     const aulas = await AulaModel.find();
 
@@ -85,7 +85,16 @@ AulaRoute.get('/:id', async (req, res) => {
   }
 });
 
-AulaRoute.get('/', async (_req, _res) => {
+AulaRoute.get('/', async (req, res) => {
+  const input = req.query;
+
+  try {
+    const aula = await AulaModel.findOne(input);
+
+    res.status(200).json(aula);
+  } catch (error) {
+    res.status(500).json({ Error: error.message });
+  }
 });
 
 export default AulaRoute;
