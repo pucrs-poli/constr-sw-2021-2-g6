@@ -7,7 +7,7 @@ export interface ReservaDocument extends ReservaInterface, mongoose.Document {
 };
 
 const ReservaShcema = new mongoose.Schema({
-  nome: { type: String, required: true },
+  Recurso: { type: Object, required: true },
 }, {
   versionKey: false
 });

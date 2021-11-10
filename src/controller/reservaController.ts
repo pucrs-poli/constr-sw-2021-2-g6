@@ -8,6 +8,9 @@ const ReservaRoute = express.Router();
 ReservaRoute.post('/', async (req, res) => {
   const input: ReservaInterface = req.body;
 
+  // Verificar se o recurso está disponivel
+  // Se disponivel, criar reserva e mudar o Emprestado para true
+
   try {
     const aula: ReservaDocument = await ReservaModel.create(input);
 
@@ -19,6 +22,8 @@ ReservaRoute.post('/', async (req, res) => {
 
 ReservaRoute.delete('/:id', async (req, res) => {
   const id = req.params.id;
+
+  // Mudar o recurso para disponivel
 
   try {
     const aulaDeletada = await ReservaModel.findByIdAndDelete({ _id: id })

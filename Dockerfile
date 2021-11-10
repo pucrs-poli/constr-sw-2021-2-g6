@@ -4,7 +4,6 @@ WORKDIR /app
 
 COPY package.json ./
 COPY tsconfig.json ./
-COPY swagger.json ./
 COPY src /app/src
 COPY config /app/config
 

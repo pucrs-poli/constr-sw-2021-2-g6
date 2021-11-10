@@ -1,3 +1,5 @@
+import { RecursoInterface } from '../interface/recurso';
+
 export interface ReservaInterface {
-  nome: string;
+  Recurso: RecursoInterface;
 }
