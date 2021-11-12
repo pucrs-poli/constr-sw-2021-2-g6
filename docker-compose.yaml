@@ -1,17 +1,10 @@
 version: '3'
 services:
-  # keycloak:
-  #   image: quay.io/keycloak/keycloak:latest
-  #   environment:
-  #     KEYCLOAK_USER: admin
-  #     KEYCLOAK_PASSWORD: admin
-  #   ports:
-  #     - 8080:8080
   api:
     depends_on:
       - keycloak
     build: .
     environment:
-      MONGODB_URI: mongodb+srv://Francisco:bozo1608@const-sw.omhzt.mongodb.net/ConstSW?retryWrites=true&w=majority
+      MONGODB_URI: # MONGODB_URI_ENV_VAR
     ports:
       - 3000:3000
