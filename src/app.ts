@@ -1,4 +1,6 @@
 import express from "express";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "../swagger.json";
 
 import connect from '../config/mongoConfig';
 import { ENVIROMENT } from "../config/enviroment";
@@ -14,6 +16,7 @@ app.use(express.urlencoded({
 
 app.use('/api/v1/aula', AulaRoute);
 app.use('/api/v1/reserva', ReservaRoute);
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 app.listen(ENVIROMENT.PORT, async () => {

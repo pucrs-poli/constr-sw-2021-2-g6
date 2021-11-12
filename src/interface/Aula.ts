@@ -4,5 +4,5 @@ export interface AulaInterface {
   professor: string,
   disciplina: string,
   numTurma: number,
-  reserva: ReservaInterface
+  reserva?: ReservaInterface
 };

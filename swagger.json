@@ -1,0 +1,227 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Constsw-2021-2 microservico Aulas e Reservas"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1/",
+  "tags": [
+    {
+      "name": "Aula",
+      "description": "CRUD dos objetos 'Aula' dentro do MongoDB"
+    },
+    {
+      "name": "Reserva",
+      "description": "CRUD dos objetos 'Reserva' dentro do MongoDB"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/aula": {
+      "post": {
+        "tags": [
+          "Aula"
+        ],
+        "description": "Cria uma nova aula",
+        "paramenters": [
+          {
+            "in": "body",
+            "shcema": {
+              "$ref": "#/definitions/AulaInput"
+            }
+          }
+        ],
+        "responses": {
+          "shcema": {
+            "$ref": "#/definitions/AulaOutput"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Aula"
+        ],
+        "description": "Get por criterios",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "professor",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "disciplina",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "numTurma",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AulaOutput"
+          }
+        }
+      }
+    },
+    "/aula/all": {
+      "get": {
+        "tags": [
+          "Aula"
+        ],
+        "description": "Retorna todas as aulas",
+        "responses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AulaOutput"
+          }
+        }
+      }
+    },
+    "/aula/{id}": {
+      "delete": {
+        "tags": [
+          "Aula"
+        ],
+        "description": "Deleta uma aula",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/AulaOutput"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Aula"
+        ],
+        "description": "Atualiza parcialmente uma aula",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "shcema": {
+              "$ref": "#/definitions/AulaInput"
+            }
+          }
+        ],
+        "responses": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/AulaOutput"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Aula"
+        ],
+        "description": "Atualiza uma aula",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "shcema": {
+              "$ref": "#/definitions/AulaInput"
+            }
+          }
+        ],
+        "responses": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/AulaOutput"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Aula"
+        ],
+        "description": "Retorna uma aula dado um ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/AulaOutput"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AulaInput": {
+      "type": "object",
+      "required": [
+        "professor",
+        "disciplina",
+        "numTurma"
+      ],
+      "properties": {
+        "professor": {
+          "type": "string"
+        },
+        "disciplina": {
+          "type": "string"
+        },
+        "numTurma": {
+          "type": "integer"
+        },
+        "reserva": {
+          "$ref": "#/definitions/Reserva"
+        }
+      }
+    },
+    "AulaOutput": {
+      "type": "object",
+      "properties": {
+        "ObjectId": {
+          "type": "string"
+        },
+        "Aula": {
+          "$ref": "#/definitions/AulaInput"
+        }
+      }
+    },
+    "Reserva": {
+      "type": "object",
+      "properties": {
+        "test": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
