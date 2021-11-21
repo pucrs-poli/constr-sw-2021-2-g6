@@ -1,3 +1,4 @@
+import axios from 'axios';
 import express from 'express';
 import { AulaInterface } from '../interface/aula';
 
@@ -6,9 +7,17 @@ import AulaModel, { AulaDocument } from '../models/aula';
 const AulaRoute = express.Router();
 
 AulaRoute.post('/', async (req, res) => {
-  const input: AulaInterface = req.body;
+  const input: Object = req.body;
 
   try {
+    if (input.hasOwnProperty('reserva') && input['reserva'] != "") {
+      const has = await axios.get(`http://localhost:3000/api/v1/reserva/${input['reserva']}`)
+
+      if (has.data == null) {
+        throw new Error("Essa reserva não existe");
+      }
+    }
+
     const aula: AulaDocument = await (await AulaModel.create(input)).populate('reserva');
 
     res.status(201).json(aula);
