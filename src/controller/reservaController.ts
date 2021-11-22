@@ -1,4 +1,6 @@
 import express from 'express';
+import { getRecursos, updateRecurso } from '../api/recursos';
+import { RecursoInterface } from '../interface/recurso';
 
 import { ReservaInterface } from '../interface/reserva';
 import ReservaModel, { ReservaDocument } from '../models/reserva';
@@ -8,10 +10,11 @@ const ReservaRoute = express.Router();
 ReservaRoute.post('/', async (req, res) => {
   const input: ReservaInterface = req.body;
 
-  // Verificar se o recurso está disponivel
-  // Se disponivel, criar reserva e mudar o Emprestado para true
-
   try {
+    const recurso: RecursoInterface = await getRecursos(`/resource/query/all?used=false`);
+
+    await updateRecurso(recurso.result._id, true);
+
     const aula: ReservaDocument = await ReservaModel.create(input);
 
     res.status(201).json(aula);
@@ -23,7 +26,9 @@ ReservaRoute.post('/', async (req, res) => {
 ReservaRoute.delete('/:id', async (req, res) => {
   const id = req.params.id;
 
-  // Mudar o recurso para disponivel
+  const reserva: ReservaInterface = await ReservaModel.findById(id);
+
+  await updateRecurso(reserva.Recurso.result._id, false);
 
   try {
     const aulaDeletada = await ReservaModel.findByIdAndDelete({ _id: id })
