@@ -179,6 +179,125 @@
           }
         }
       }
+    },
+    "/reserva": {
+      "post": {
+        "tags": [
+          "Reserva"
+        ],
+        "description": "Cria uma nova reserva",
+        "parameters": [
+          {
+            "in": "body",
+            "shcema": {
+              "$ref": "#/definitions/ReservaInput"
+            }
+          }
+        ],
+        "responses": {
+          "shcema": {
+            "$ref": "#/definitions/ReservaOutput"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Reserva"
+        ],
+        "description": "Get por criterios",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "aula",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "aluno",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "data",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReservaOutput"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Reserva"
+        ],
+        "description": "Deleta uma reserva",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/ReservaOutput"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Reserva"
+        ],
+        "description": "Atualiza parcialmente uma reserva",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "shcema": {
+              "$ref": "#/definitions/ReservaInput"
+            }
+          }
+        ],
+        "responses": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/ReservaOutput"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Reserva"
+        ],
+        "description": "Atualiza uma reserva",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "shcema": {
+              "$ref": "#/definitions/ReservaInput"
+            }
+          }
+        ],
+        "responses": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/ReservaOutput"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -202,24 +321,24 @@
         "reserva": {
           "$ref": "#/definitions/Reserva"
         }
-      }
-    },
-    "AulaOutput": {
-      "type": "object",
-      "properties": {
-        "ObjectId": {
-          "type": "string"
-        },
-        "Aula": {
-          "$ref": "#/definitions/AulaInput"
+      },
+      "AulaOutput": {
+        "type": "object",
+        "properties": {
+          "ObjectId": {
+            "type": "string"
+          },
+          "Aula": {
+            "$ref": "#/definitions/AulaInput"
+          }
         }
-      }
-    },
-    "Reserva": {
-      "type": "object",
-      "properties": {
-        "test": {
-          "type": "string"
+      },
+      "Reserva": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "string"
+          }
         }
       }
     }
