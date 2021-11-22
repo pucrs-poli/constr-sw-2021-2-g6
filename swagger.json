@@ -2,18 +2,18 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "Constsw-2021-2 Keycloak Nodejs API"
+    "title": "Constsw-2021-2 microservico Aulas e Reservas"
   },
-  "host": "18.117.178.141:3000",
-  "basePath": "/api/v1",
+  "host": "localhost:3000",
+  "basePath": "/api/v1/",
   "tags": [
     {
-      "name": "User",
-      "description": "CRUD dos usuarios no servidor Keycloak"
+      "name": "Aula",
+      "description": "CRUD dos objetos 'Aula' dentro do MongoDB"
     },
     {
-      "name": "Auth",
-      "description": "Autentica usuario no servidor do Keycloak"
+      "name": "Reserva",
+      "description": "CRUD dos objetos 'Reserva' dentro do MongoDB"
     }
   ],
   "schemes": [
@@ -26,147 +26,319 @@
     "application/json"
   ],
   "paths": {
-    "/auth": {
+    "/aula": {
       "post": {
         "tags": [
-          "Auth"
+          "Aula"
         ],
-        "description": "Autoriza um usuario no servidor do Keycloak",
-        "parameters": [
+        "description": "Cria uma nova aula",
+        "paramenters": [
           {
-            "name": "Body para autenticacao de um usuario",
             "in": "body",
-            "schema": {
-              "$ref": "#/definitions/UserAuthentication"
+            "shcema": {
+              "$ref": "#/definitions/AulaInput"
             }
           }
-        ]
-      }
-    },
-    "/user": {
-      "get": {
-        "tags": [
-          "User"
         ],
-        "description": "Lista todos os usuarios existentes"
+        "responses": {
+          "shcema": {
+            "$ref": "#/definitions/AulaOutput"
+          }
+        }
       },
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "description": "Cria um novo usuario",
-        "parameters": [
-          {
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          }
-        ]
-      }
-    },
-    "/user/{id}": {
       "get": {
         "tags": [
-          "User"
+          "Aula"
         ],
-        "description": "Lista um usuario expecifico",
+        "description": "Get por criterios",
         "parameters": [
           {
-            "in": "query"
+            "in": "query",
+            "name": "professor",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "disciplina",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "numTurma",
+            "type": "integer"
           }
-        ]
+        ],
+        "responses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AulaOutput"
+          }
+        }
+      }
+    },
+    "/aula/all": {
+      "get": {
+        "tags": [
+          "Aula"
+        ],
+        "description": "Retorna todas as aulas",
+        "responses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AulaOutput"
+          }
+        }
+      }
+    },
+    "/aula/{id}": {
+      "delete": {
+        "tags": [
+          "Aula"
+        ],
+        "description": "Deleta uma aula",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/AulaOutput"
+          }
+        }
       },
       "put": {
         "tags": [
-          "User"
+          "Aula"
         ],
+        "description": "Atualiza parcialmente uma aula",
         "parameters": [
           {
-            "in": "query"
+            "in": "path",
+            "name": "id",
+            "type": "string"
           },
           {
             "in": "body",
-            "schema": {
-              "$ref": "#/definitions/UserPut"
+            "shcema": {
+              "$ref": "#/definitions/AulaInput"
             }
           }
-        ]
-      },
-      "delete": {
-        "tags": [
-          "User"
         ],
-        "parameters": [
-          {
-            "in": "query"
+        "responses": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/AulaOutput"
           }
-        ]
+        }
       },
       "patch": {
         "tags": [
-          "User"
+          "Aula"
         ],
+        "description": "Atualiza uma aula",
         "parameters": [
           {
-            "in": "query"
+            "in": "path",
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "shcema": {
+              "$ref": "#/definitions/AulaInput"
+            }
           }
-        ]
+        ],
+        "responses": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/AulaOutput"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Aula"
+        ],
+        "description": "Retorna uma aula dado um ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/AulaOutput"
+          }
+        }
+      }
+    },
+    "/reserva": {
+      "post": {
+        "tags": [
+          "Reserva"
+        ],
+        "description": "Cria uma nova reserva",
+        "parameters": [
+          {
+            "in": "body",
+            "shcema": {
+              "$ref": "#/definitions/ReservaInput"
+            }
+          }
+        ],
+        "responses": {
+          "shcema": {
+            "$ref": "#/definitions/ReservaOutput"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Reserva"
+        ],
+        "description": "Get por criterios",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "aula",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "aluno",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "data",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReservaOutput"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Reserva"
+        ],
+        "description": "Deleta uma reserva",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/ReservaOutput"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Reserva"
+        ],
+        "description": "Atualiza parcialmente uma reserva",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "shcema": {
+              "$ref": "#/definitions/ReservaInput"
+            }
+          }
+        ],
+        "responses": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/ReservaOutput"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Reserva"
+        ],
+        "description": "Atualiza uma reserva",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "shcema": {
+              "$ref": "#/definitions/ReservaInput"
+            }
+          }
+        ],
+        "responses": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/ReservaOutput"
+          }
+        }
       }
     }
   },
   "definitions": {
-    "UserAuthentication": {
+    "AulaInput": {
       "type": "object",
+      "required": [
+        "professor",
+        "disciplina",
+        "numTurma"
+      ],
       "properties": {
-        "username": {
+        "professor": {
           "type": "string"
         },
-        "password": {
+        "disciplina": {
           "type": "string"
         },
-        "grantType": {
-          "type": "string"
+        "numTurma": {
+          "type": "integer"
         },
-        "clientId": {
-          "type": "string"
-        },
-        "clientSecret": {
-          "type": "string"
+        "reserva": {
+          "$ref": "#/definitions/Reserva"
         }
-      }
-    },
-    "User": {
-      "type": "object",
-      "properties": {
-        "username": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
-        "emailVerified": {
-          "type": "boolean"
-        },
-        "enable": {
-          "type": "boolean"
+      },
+      "AulaOutput": {
+        "type": "object",
+        "properties": {
+          "ObjectId": {
+            "type": "string"
+          },
+          "Aula": {
+            "$ref": "#/definitions/AulaInput"
+          }
         }
-      }
-    },
-    "UserPut": {
-      "type": "object",
-      "properties": {
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
+      },
+      "Reserva": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "string"
+          }
         }
       }
     }
