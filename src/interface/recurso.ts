@@ -3,4 +3,5 @@ export interface RecursoInterface {
   Emprestado: boolean;
   Id_ultimo_usuario: number;
   Descricao: string;
+  type_resource: string;
 }
