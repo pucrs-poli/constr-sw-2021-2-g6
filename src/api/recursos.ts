@@ -1,27 +1,21 @@
 import axios from 'axios';
+import { omit } from 'lodash';
 
 import { ENVIROMENT } from "../../config/enviroment";
-import { RecursoInterface } from '../interface/recurso';
 
 const apiRecursos = axios.create({
   baseURL: `${ENVIROMENT.RECURSO_API_URL}`
 });
 
-export const getRecursos = async (criteria: string): Promise<RecursoInterface> => {
+export async function getRecursos(tipoRecurso: string) {
   try {
-    const { data } = await apiRecursos.get(`${criteria}`);
-    return <RecursoInterface>data;
+    const url = "resource/query/free?startTime=2021-11-23T10:44:32.242Z&endTime=2021-11-23T11:00:32.242Z&resourceTypeName="
+
+    const data = await apiRecursos.get(`${url}${tipoRecurso}`);
+
+    return omit(data.data.result[0], '_id');
   } catch (error) {
     return error;
   }
 }
 
-export const updateRecurso = async (id: string, status: boolean) => {
-  try {
-    await apiRecursos.patch(`/resource/${id}`, {
-      used: status
-    });
-  } catch (error) {
-    return error;
-  }
-}
