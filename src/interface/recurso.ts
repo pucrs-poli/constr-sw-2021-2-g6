@@ -1,10 +1,10 @@
 export interface RecursoInterface {
-  result: {
+  _id: string;
+  Name: string;
+  Used: boolean;
+  Description: string;
+  TypeResource: {
     _id: string;
-    Nome?: string;
-    Emprestado?: boolean;
-    Id_ultimo_usuario?: number;
-    Descricao?: string;
-    type_resource: string;
+    Name: string;
   }
 }

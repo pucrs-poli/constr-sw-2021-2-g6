@@ -1,34 +1,27 @@
 import express from 'express';
-import { getRecursos, updateRecurso } from '../api/recursos';
-import { RecursoInterface } from '../interface/recurso';
 
+import { getRecursos } from '../api/recursos';
 import { ReservaInterface } from '../interface/reserva';
-import ReservaModel, { ReservaDocument } from '../models/reserva';
+import ReservaModel from '../models/reserva';
 
 const ReservaRoute = express.Router();
 
 ReservaRoute.post('/', async (req, res) => {
-  const input: ReservaInterface = req.body;
+  const input = req.body.TipoRecurso;
 
   try {
-    const recurso: RecursoInterface = await getRecursos(`/resource/query/all?used=false`);
+    const recurso: ReservaInterface = await getRecursos(input);
 
-    await updateRecurso(recurso.result._id, true);
+    const reservaCriada = await ReservaModel.create({ Recurso: recurso });
 
-    const aula: ReservaDocument = await ReservaModel.create(input);
-
-    res.status(201).json(aula);
+    res.json(reservaCriada).status(201);
   } catch (error) {
-    res.status(500).json({ Error: error.message });
+    res.status(400).json({ Error: error.message });
   }
 });
 
 ReservaRoute.delete('/:id', async (req, res) => {
   const id = req.params.id;
-
-  const reserva: ReservaInterface = await ReservaModel.findById(id);
-
-  await updateRecurso(reserva.Recurso.result._id, false);
 
   try {
     const aulaDeletada = await ReservaModel.findByIdAndDelete({ _id: id })
