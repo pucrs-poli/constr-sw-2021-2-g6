@@ -321,24 +321,24 @@
         "reserva": {
           "$ref": "#/definitions/Reserva"
         }
-      },
-      "AulaOutput": {
-        "type": "object",
-        "properties": {
-          "ObjectId": {
-            "type": "string"
-          },
-          "Aula": {
-            "$ref": "#/definitions/AulaInput"
-          }
+      }
+    },
+    "AulaOutput": {
+      "type": "object",
+      "properties": {
+        "ObjectId": {
+          "type": "string"
+        },
+        "Aula": {
+          "$ref": "#/definitions/AulaInput"
         }
-      },
-      "Reserva": {
-        "type": "object",
-        "properties": {
-          "test": {
-            "type": "string"
-          }
+      }
+    },
+    "Reserva": {
+      "type": "object",
+      "properties": {
+        "test": {
+          "type": "string"
         }
       }
     }

@@ -10,7 +10,7 @@ const AulaSchema = new mongoose.Schema({
   professor: { type: String, required: true },
   disciplina: { type: String, required: true },
   numTurma: { type: Number, required: true },
-  reserva: { type: mongoose.Schema.Types.ObjectId, ref: 'Reserva' },
+  reserva: { type: mongoose.Schema.Types.ObjectId, ref: 'Reserva', unique: true },
 }, {
   versionKey: false
 });
